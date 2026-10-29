@@ -27,6 +27,18 @@ describe("cn", () => {
     expect(cn("max-w-default", "max-w-prose")).toBe("max-w-prose");
   });
 
+  it("resolves the compact container width", () => {
+    expect(cn("max-w-prose", "max-w-compact")).toBe("max-w-compact");
+  });
+
+  it("resolves the quote card width", () => {
+    expect(cn("w-full", "w-quote")).toBe("w-quote");
+  });
+
+  it("resolves the folder sheet width", () => {
+    expect(cn("max-w-default", "max-w-sheet")).toBe("max-w-sheet");
+  });
+
   it("resolves custom tracking and easing tokens", () => {
     expect(cn("tracking-normal", "tracking-wide", "ease-standard", "ease-emphasized")).toBe(
       "tracking-wide ease-emphasized",

@@ -4,7 +4,7 @@ import { extendTailwindMerge } from "tailwind-merge";
 const twMerge = extendTailwindMerge({
   extend: {
     theme: {
-      container: ["prose", "narrow", "default", "wide"],
+      container: ["compact", "quote", "prose", "narrow", "default", "wide", "sheet"],
       ease: ["standard", "emphasized"],
       font: ["sans", "mono", "display", "kanji"],
       "font-weight": ["light", "regular", "medium", "semibold"],

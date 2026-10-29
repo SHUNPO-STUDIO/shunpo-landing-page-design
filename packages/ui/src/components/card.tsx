@@ -9,6 +9,7 @@ const cardVariants = cva("flex flex-col rounded-sm text-foreground", {
       surface: "bg-surface shadow-sm",
       muted: "bg-muted",
       outline: "border border-border",
+      night: "bg-background scheme-dark",
     },
     corner: {
       none: "",

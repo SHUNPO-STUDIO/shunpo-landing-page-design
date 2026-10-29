@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect } from "storybook/test";
 
 import { Button } from "../src/components/button.tsx";
 import { Card } from "../src/components/card.tsx";
@@ -43,3 +44,10 @@ export const Variants: Story = {
 };
 
 export const LargePadding: Story = { args: { padding: "lg" } };
+
+export const Night: Story = {
+  args: { variant: "night", corner: "cut" },
+  play: async ({ canvas }) => {
+    await expect(canvas.getByRole("heading", { name: "Design tokens" })).toBeVisible();
+  },
+};

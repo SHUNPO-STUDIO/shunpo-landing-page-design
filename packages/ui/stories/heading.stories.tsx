@@ -24,6 +24,7 @@ export const Sizes: Story = {
   render: (args) => (
     <Stack gap="lg">
       <Heading {...args} level={1} size="display-xl" />
+      <Heading {...args} level={1} size="headline" />
       <Heading {...args} level={1} size="display" />
       <Heading {...args} level={2} size="title-lg" />
       <Heading {...args} level={3} size="title" />

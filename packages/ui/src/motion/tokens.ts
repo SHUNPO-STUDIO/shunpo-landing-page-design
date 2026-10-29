@@ -23,3 +23,9 @@ export const sceneLength = {
 } as const;
 
 export const scrub = 0.6;
+
+/* Speed of a looping band (logo marquee), in pixels per second: slow enough to read every name. */
+export const drift = 28;
+
+/* Screens a still frame stays pinned before the page moves on: a breath, not a scene. */
+export const holdLength = 0.5;
