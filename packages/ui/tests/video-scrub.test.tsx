@@ -42,22 +42,32 @@ afterEach(async () => {
 });
 
 describe("VideoScrub", () => {
-  it("attaches the film's sources, MP4 first, only once the page is idle", async () => {
+  it("shows the poster and attaches no source before the visitor engages", async () => {
     const screen = await render(<Film />);
     const video = filmOf(screen.container);
 
     await expect
       .element(screen.getByRole("img", { name: "Night over the mountains" }))
       .toBeVisible();
+    expect(video.querySelectorAll("source")).toHaveLength(0);
+  });
+
+  it("attaches the film's sources, MP4 first, once the visitor engages", async () => {
+    const screen = await render(<Film />);
+    const video = filmOf(screen.container);
+
+    window.dispatchEvent(new Event("scroll"));
+
     await expect
       .poll(() => [...video.querySelectorAll("source")].map((source) => source.type))
       .toEqual(["video/mp4", "video/webm"]);
   });
 
-  it("loads the film once idle and paints the frame the scroll asks for", async () => {
+  it("loads the film once engaged and paints the frame the scroll asks for", async () => {
     const onProgress = vi.fn<(progress: number) => void>();
     const screen = await render(<Film onProgress={onProgress} />);
     const video = filmOf(screen.container);
+    window.dispatchEvent(new Event("scroll"));
 
     await expect.poll(() => video.preload).toBe("auto");
     await expect
@@ -72,6 +82,7 @@ describe("VideoScrub", () => {
   it("holds the last frame over the end of the range", async () => {
     const screen = await render(<Film />);
     const video = filmOf(screen.container);
+    window.dispatchEvent(new Event("scroll"));
     await expect
       .poll(() => video.readyState)
       .toBeGreaterThanOrEqual(HTMLMediaElement.HAVE_METADATA);

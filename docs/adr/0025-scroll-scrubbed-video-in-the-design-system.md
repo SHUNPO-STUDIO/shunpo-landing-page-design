@@ -28,7 +28,7 @@ The SHUNPO page tells its story with filmed scenes read by the scroll: the hero'
 Chosen option: "A `VideoScrub` motion component", because one encoded file per scene is far lighter than an image sequence and keeps the frame-accurate, reversible control an autoplaying loop cannot give.
 
 - Files live in `apps/web/public/media/<feature>/<slot>.{webm,mp4}` with a poster rendered through `next/image`. They are encoded with a short keyframe interval so seeking backwards stays fluid, without audio, with `+faststart`.
-- The poster is the LCP; the video loads with `preload="none"` and is attached once the page is idle.
+- The poster and the headline paint first; the video sources are attached only once the visitor engages (scroll, touch, click or key), the scene is at most a screen away and the browser is idle, so a film never weighs on the first load.
 - Under reduced motion the component shows the poster (or the final frame) and never pins.
 - `public/` files referenced by string go through `NEXT_PUBLIC_BASE_PATH` (ADR-0023).
 

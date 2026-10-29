@@ -120,22 +120,47 @@ function whenIdle(callback: () => void): () => void {
   };
 }
 
-/* Runs `callback` once the browser is idle, when the element is at most a screen away. */
+const ENGAGEMENTS = ["scroll", "wheel", "touchstart", "pointerdown", "keydown"] as const;
+
+/* Runs `callback` when the browser is idle, once the element is at most a screen away and the visitor
+   has engaged (scroll, touch, click or key press): a film never weighs on the first load. */
 export function whenNear(element: Element, callback: () => void): () => void {
+  let near = false;
+  let engaged = false;
   let cancelIdle: (() => void) | undefined;
+  function stopEngagement(): void {
+    for (const type of ENGAGEMENTS) {
+      window.removeEventListener(type, engage);
+    }
+  }
+  function loadWhenReady(): void {
+    if (near && engaged) {
+      cancelIdle = whenIdle(callback);
+    }
+  }
+  function engage(): void {
+    stopEngagement();
+    engaged = true;
+    loadWhenReady();
+  }
   const observer = new IntersectionObserver(
     (entries) => {
       if (!entries.some((entry) => entry.isIntersecting)) {
         return;
       }
       observer.disconnect();
-      cancelIdle = whenIdle(callback);
+      near = true;
+      loadWhenReady();
     },
     { rootMargin: "100% 0px" },
   );
   observer.observe(element);
+  for (const type of ENGAGEMENTS) {
+    window.addEventListener(type, engage, { passive: true });
+  }
   return () => {
     observer.disconnect();
+    stopEngagement();
     cancelIdle?.();
   };
 }

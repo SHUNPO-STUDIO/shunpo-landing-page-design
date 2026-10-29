@@ -19,7 +19,8 @@ const CALL_OFFSET = "2.5rem";
 const APPROACH_SCALE = 1.12;
 
 /* The stage rises like a curtain over still content: until it reaches the top, its content is held
-   in place on the screen and only uncovered. */
+   in place on the screen and only uncovered. The hold starts with the rise, so at rest the content
+   stays inside its own section (contrast tools and readers never find it over the previous one). */
 function riseLikeCurtain(stage: HTMLElement): void {
   gsap
     .timeline({
@@ -32,7 +33,12 @@ function riseLikeCurtain(stage: HTMLElement): void {
         invalidateOnRefresh: true,
       },
     })
-    .fromTo("[data-spotlight-content]", { y: () => -window.innerHeight }, { y: 0 }, 0)
+    .fromTo(
+      "[data-spotlight-content]",
+      { y: () => -window.innerHeight },
+      { y: 0, immediateRender: false },
+      0,
+    )
     .from("[data-spotlight-call]", { y: CALL_OFFSET }, 0)
     .from("[data-spotlight-frame]", { scale: APPROACH_SCALE, transformOrigin: "60% 90%" }, 0);
 }

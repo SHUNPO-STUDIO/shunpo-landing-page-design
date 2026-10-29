@@ -13,13 +13,16 @@ afterEach(async () => {
 });
 
 describe("TextReveal", () => {
-  it("splits the heading into masked lines that rise on load, keeping its accessible name", async () => {
+  it("rises on load without waiting for scripts, then splits into lines a scene can send out", async () => {
     const screen = await render(
       <TextReveal play="load">
         <Heading level={1}>{TITLE}</Heading>
       </TextReveal>,
     );
 
+    await expect
+      .element(screen.container.querySelector("[data-slot=text-reveal]"))
+      .toHaveStyle({ animationName: "rise" });
     await expect.element(screen.getByRole("heading", { level: 1, name: TITLE })).toBeVisible();
     await expect
       .element(screen.container.querySelector<HTMLElement>("[data-split]"))

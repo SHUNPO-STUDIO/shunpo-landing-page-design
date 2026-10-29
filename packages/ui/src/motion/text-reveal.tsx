@@ -22,20 +22,18 @@ const MASK_REACH = "inset(-0.25em -0.1em -0.3em)";
 type RevealPart = "lines" | "words";
 type RevealCue = "load" | "enter";
 
-/* On load, the text stays hidden until it is split, so the server-rendered heading never flashes before rising. */
+/* On load, the whole text rises in CSS from the first paint (it is the page's LCP); scripts only split
+   it afterwards, so a scene can send its lines out. On enter, the split lines rise. */
 const revealVariants = cva("", {
   variants: {
     play: {
-      load: "motion-safe:invisible motion-safe:data-split:visible",
+      load: "motion-safe:animate-rise",
       enter: "",
     },
   },
 });
 
-function cueOf(root: HTMLElement, play: RevealCue): gsap.TweenVars {
-  if (play === "load") {
-    return { delay: duration.fast };
-  }
+function enterCue(root: HTMLElement): gsap.TweenVars {
   return {
     scrollTrigger: { trigger: root.closest("section") ?? root, start: "top 60%", once: true },
   };
@@ -56,15 +54,18 @@ function revealOf(root: HTMLElement, by: RevealPart, play: RevealCue): Reveal {
     for (const line of split.lines) {
       line.toggleAttribute("data-reveal-line", true);
     }
+    root.toggleAttribute("data-split", true);
+    if (play === "load") {
+      return;
+    }
     rise = gsap.from(by === "words" ? split.words : split.lines, {
       yPercent: BELOW_LINE_PERCENT,
       duration: duration.slow,
       ease: ease.emphasized,
       stagger: by === "words" ? stagger.base : stagger.loose,
-      ...cueOf(root, play),
+      ...enterCue(root),
     });
     rise.progress(progress);
-    root.toggleAttribute("data-split", true);
   }
   function stop(): void {
     rise?.kill();
