@@ -19,8 +19,8 @@ interface PhotoStageProps extends Omit<HTMLAttributes<HTMLElement>, "children"> 
   image: ReactElement;
 }
 
-/* A full-screen sheet of paper framing one photograph. It slides over the pinned scene before it,
-   then holds for a breath (tablet up) before the page moves on. */
+/* A full-screen sheet of paper framing one photograph. It slides over the pinned scene before it, covering
+   it whole, then holds for a breath (tablet up) before the page moves on. */
 export function PhotoStage({ image, ...props }: PhotoStageProps) {
   const root = useRef<HTMLDivElement>(null);
 
@@ -40,7 +40,12 @@ export function PhotoStage({ image, ...props }: PhotoStageProps) {
 
   return (
     <div ref={root} data-slot="photo-stage" className="relative z-10">
-      <Section scheme="light" spacing="sm" className="md:h-svh md:py-24" {...props}>
+      <Section
+        scheme="light"
+        spacing="sm"
+        className="motion-safe:h-svh md:h-svh md:py-24"
+        {...props}
+      >
         <Container size="wide" className="grid h-full place-items-center md:fit-stage">
           <div className="relative aspect-16/9 w-full overflow-clip md:fit-video [&_img]:object-cover">
             {image}

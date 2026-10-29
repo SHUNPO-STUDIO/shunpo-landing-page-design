@@ -6,16 +6,9 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { type ReactNode, useRef } from "react";
 
-import { ease, sceneLength, scrub } from "./tokens.ts";
+import { ease, pinFrom, sceneLength, scrub } from "./tokens.ts";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
-
-const ALLOW_MOTION = "(prefers-reduced-motion: no-preference)";
-
-const breakpointQuery = {
-  all: ALLOW_MOTION,
-  md: `(min-width: 48rem) and ${ALLOW_MOTION}`,
-} as const;
 
 const stageVariants = cva("grid grid-cols-1 place-items-center overflow-clip", {
   variants: {
@@ -32,7 +25,7 @@ interface ScrollSceneProps {
   still?: ReactNode;
   choreography: (timeline: gsap.core.Timeline) => void;
   length?: keyof typeof sceneLength;
-  minWidth?: keyof typeof breakpointQuery;
+  minWidth?: keyof typeof pinFrom;
 }
 
 export function ScrollScene({
@@ -46,7 +39,7 @@ export function ScrollScene({
 
   useGSAP(
     () => {
-      gsap.matchMedia().add(breakpointQuery[minWidth], () => {
+      gsap.matchMedia().add(pinFrom[minWidth], () => {
         choreography(
           gsap.timeline({
             defaults: { ease: ease.standard },

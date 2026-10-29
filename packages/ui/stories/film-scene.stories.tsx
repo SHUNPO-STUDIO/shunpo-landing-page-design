@@ -21,7 +21,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "A full-screen film behind a centred headline, scrubbed by the scroll. From md the stage stays pinned for `length` screens (the film plays over 1 450 of 1 800 px, then holds), then recedes under a veil while the next section covers it; on phones it plays while the stage scrolls by. The headline's lines rise on load; from `lightAt` (film progress) title and action switch to the light scheme, from `leaveAt` they leave the image to the film.",
+          "A full-screen film behind a centred headline, scrubbed by the scroll. The stage stays pinned for `length` screens of scroll (`h-scroll-screen`: the screen height, or 62.5 % of its width when narrower, so a phone runs the prototype's course in proportion); the film plays over 1 450 of every 1 800 px, then holds, and the stage recedes under a veil while the next section covers it. `minWidth=\"md\"` pins from the tablet breakpoint only (below, the film plays while the stage scrolls by). The headline's lines rise on load; from `lightAt` (film progress) title and action switch to the light scheme, from `leaveAt` they leave the image to the film.",
       },
     },
   },

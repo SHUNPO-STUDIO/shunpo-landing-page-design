@@ -41,7 +41,7 @@ export function AccordionItem({ question, children, className, ...props }: Accor
         </BaseAccordion.Trigger>
       </BaseAccordion.Header>
       <BaseAccordion.Panel className="h-accordion-panel overflow-hidden transition-all duration-200 ease-standard after:block after:h-6 data-ending-style:h-0 data-starting-style:h-0 motion-reduce:transition-none">
-        <div className="max-w-prose text-md text-muted-foreground">{children}</div>
+        <div className="max-w-prose text-md text-foreground">{children}</div>
       </BaseAccordion.Panel>
     </BaseAccordion.Item>
   );

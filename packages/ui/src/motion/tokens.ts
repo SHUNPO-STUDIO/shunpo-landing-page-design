@@ -24,6 +24,12 @@ export const sceneLength = {
 
 export const scrub = 0.6;
 
+/* Where a scene may pin: at every width, or from the tablet breakpoint (md); never under reduced motion. */
+export const pinFrom = {
+  all: "(prefers-reduced-motion: no-preference)",
+  md: "(min-width: 48rem) and (prefers-reduced-motion: no-preference)",
+} as const;
+
 /* Speed of a looping band (logo marquee), in pixels per second: slow enough to read every name. */
 export const drift = 28;
 

@@ -7,8 +7,9 @@ const headingVariants = cva("font-display font-regular tracking-tight", {
   variants: {
     size: {
       "display-xl": "text-6xl",
-      /* A page's headline over a full-screen scene: display on phones, display-xl from tablets. */
-      headline: "text-5xl md:text-6xl",
+      /* A page's headline over a full-screen scene: display on phones, display-xl from tablets, capped
+         by the screen's height so it clears the header on short laptops. */
+      headline: "text-5xl md:text-headline",
       display: "text-5xl",
       "title-lg": "text-4xl",
       title: "text-3xl",

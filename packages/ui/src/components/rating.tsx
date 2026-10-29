@@ -18,25 +18,44 @@ const ratingVariants = cva(
 
 interface RatingProps
   extends HTMLAttributes<HTMLParagraphElement>, VariantProps<typeof ratingVariants> {
-  /* Accessible name of the stars, e.g. « 5 étoiles sur 5 ». */
-  starsLabel: string;
+  /* The score, e.g. 4.6: that many stars are filled, the last one in part. */
+  value: number;
+  /* The scale: how many stars are drawn. */
   stars?: number;
+  /* Read instead of the stars, e.g. « Note de 4,6 sur 5 ». */
+  starsLabel: string;
 }
 
-/* A review score in words followed by its stars in seal ink, e.g. « 4,6/5 sur Trustpilot ★★★★★ ». */
+function filledShare(value: number, stars: number): string {
+  return `${Math.min(1, Math.max(0, value / stars)) * 100}%`;
+}
+
+/* A review score in words followed by its stars in seal ink, e.g. « 4,6/5 sur Trustpilot ★★★★★ »:
+   the stars are filled up to the score over faint ones. */
 export function Rating({
-  starsLabel,
+  value,
   stars = 5,
+  starsLabel,
   align,
   className,
   children,
   ...props
 }: RatingProps) {
+  const row = "★".repeat(stars);
   return (
     <p data-slot="rating" className={cn(ratingVariants({ align }), className)} {...props}>
       <span>{children}</span>
-      <span aria-hidden="true" className="tracking-wide text-accent">
-        {"★".repeat(stars)}
+      <span aria-hidden="true" className="relative tracking-wide text-accent">
+        <span data-rating-stars className="opacity-40">
+          {row}
+        </span>
+        <span
+          data-rating-fill
+          className="absolute inset-y-0 left-0 overflow-hidden whitespace-nowrap"
+          style={{ width: filledShare(value, stars) }}
+        >
+          {row}
+        </span>
       </span>
       <span className="sr-only">{starsLabel}</span>
     </p>

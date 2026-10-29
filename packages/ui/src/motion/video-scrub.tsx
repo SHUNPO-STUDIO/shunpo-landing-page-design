@@ -15,9 +15,10 @@ const ALLOW_MOTION = "(prefers-reduced-motion: no-preference)";
 
 interface FilmRange {
   sources: VideoSources;
-  /* ScrollTrigger positions of the range that plays the film, measured on the section holding it. */
+  /* ScrollTrigger positions of the range that plays the film, measured on the section holding it; a
+     function `end` is measured again on every refresh. */
   start: string;
-  end: string;
+  end: string | (() => string);
   /* Share of the range, at its end, that keeps the last frame. */
   hold: number;
   /* Follows the film's progress (0 to 1), for scenes that react to the image. */

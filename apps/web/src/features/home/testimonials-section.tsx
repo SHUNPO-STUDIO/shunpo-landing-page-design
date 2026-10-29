@@ -12,6 +12,7 @@ import {
   testimonialColumns,
   testimonialsPause,
   testimonialsRating,
+  testimonialsScore,
   testimonialsStars,
   testimonialsTitle,
 } from "./testimonials-content";
@@ -25,7 +26,9 @@ export function TestimonialsSection() {
             <Heading level={2} size="display" align="center" id="avis-title">
               {testimonialsTitle}
             </Heading>
-            <Rating starsLabel={testimonialsStars}>{testimonialsRating}</Rating>
+            <Rating value={testimonialsScore} starsLabel={testimonialsStars}>
+              {testimonialsRating}
+            </Rating>
           </Stack>
           <MarqueeWall pauseLabel={testimonialsPause}>
             {testimonialColumns.map((column) => (

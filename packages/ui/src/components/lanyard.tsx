@@ -38,7 +38,7 @@ export function Lanyard({
   return (
     <Element
       data-slot="lanyard"
-      className={cn("w-full p-3 md:w-1/2 md:py-6 lg:w-1/3 lg:px-6", className)}
+      className={cn("w-full p-3 md:w-1/2 md:p-6 lg:w-1/3", className)}
       {...props}
     >
       <Swing order={order}>

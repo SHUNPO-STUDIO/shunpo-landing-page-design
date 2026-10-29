@@ -15,17 +15,17 @@ export function TeamSection() {
     <Section id="agence" tone="surface" spacing="lg" aria-labelledby="agence-title">
       <Container>
         <Stack gap="3xl">
-          <Stack gap="md">
-            <Heading level={2} size="display" id="agence-title">
+          <Stack gap="md" align="center">
+            <Heading level={2} size="display" align="center" id="agence-title">
               {teamTitle}
             </Heading>
-            <Text size="lg" tone="muted" measure="prose">
+            <Text size="lg" tone="muted" align="center" measure="prose">
               {teamLead}
             </Text>
           </Stack>
           <TeamBadges />
-          <Inline>
-            <ButtonLink href={contactHref} variant="accent" size="lg" corner="cut" arrow>
+          <Inline justify="center">
+            <ButtonLink href={contactHref} variant="outline" size="lg" arrow>
               {teamAction}
             </ButtonLink>
           </Inline>

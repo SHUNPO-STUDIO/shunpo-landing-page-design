@@ -23,6 +23,12 @@ describe("cn", () => {
     expect(cn("text-md", "text-foreground", "text-lg")).toBe("text-foreground text-lg");
   });
 
+  it("treats the headline size as a font size", () => {
+    expect(cn("text-5xl", "text-foreground", "text-headline")).toBe(
+      "text-foreground text-headline",
+    );
+  });
+
   it("resolves custom container widths", () => {
     expect(cn("max-w-default", "max-w-prose")).toBe("max-w-prose");
   });

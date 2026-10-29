@@ -11,7 +11,7 @@ import { LostHoursCalculator } from "./lost-hours-calculator";
 
 export function CalculatorSection() {
   return (
-    <Section id="calculateur" spacing="lg" aria-labelledby="calculateur-title">
+    <Section id="calculateur" tone="surface" spacing="lg" aria-labelledby="calculateur-title">
       <Container>
         <Stack gap="3xl">
           <Grid columns="2" from="lg" gap="3xl" align="center">

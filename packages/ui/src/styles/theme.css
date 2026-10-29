@@ -361,3 +361,19 @@
   width: min(100cqw, 100cqh * 16 / 9);
   aspect-ratio: 16 / 9;
 }
+
+/* Design review 1 — hero sunrise on every width, headline on short screens */
+
+@theme static {
+  /* One screen of a scene's scroll, measured on the approved 1 440 × 900 frame: the screen's height, or
+     62.5 % of its width when narrower, so a phone runs the same course as a desktop in proportion. */
+  --height-scroll-screen: min(100svh, 62.5vw);
+
+  /* A headline over a full-screen scene: display-xl, capped at 11 % of the screen's height so it clears
+     the header on short laptops (no cap from 873 px high). */
+  --text-headline: min(var(--text-6xl), 11svh);
+  --text-headline--line-height: 1;
+}
+
+/* Screens at least as tall as the approved 900 px frame, where a scene's headline sits above centre. */
+@custom-variant tall (@media (min-height: 56.25rem));

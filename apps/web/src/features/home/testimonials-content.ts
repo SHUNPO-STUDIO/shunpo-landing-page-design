@@ -8,7 +8,9 @@ export const testimonialsTitle = "Ce qu’en disent nos clients";
 
 export const testimonialsRating = "4,6/5 sur Trustpilot";
 
-export const testimonialsStars = "5 étoiles sur 5";
+export const testimonialsScore = 4.6;
+
+export const testimonialsStars = "Note de 4,6 sur 5";
 
 export const testimonialsPause = "Mettre en pause le défilement des avis";
 

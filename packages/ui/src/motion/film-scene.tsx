@@ -1,22 +1,45 @@
 "use client";
 
-import { type HTMLAttributes, type ReactElement, type ReactNode, useRef } from "react";
+import { cva } from "class-variance-authority";
+import {
+  type HTMLAttributes,
+  type ReactElement,
+  type ReactNode,
+  type RefObject,
+  useRef,
+} from "react";
 
 import { Container } from "../layout/container.tsx";
 import { Section } from "../layout/section.tsx";
 import { Stack } from "../layout/stack.tsx";
-import { type FilmMarks, filmHold, followFilm, useRecede } from "./film-choreography.ts";
+import { type FilmMarks, filmEnd, followFilm, useRecede } from "./film-choreography.ts";
 import { TextReveal } from "./text-reveal.tsx";
-import { sceneLength } from "./tokens.ts";
+import { type pinFrom, sceneLength } from "./tokens.ts";
 import { VideoScrub } from "./video-scrub.tsx";
 import type { VideoSources } from "./video-seeker.ts";
 
-/* One screen of scroll per screen the stage stays pinned (tablet up, motion allowed). */
-function ScrollTrack({ screens }: { screens: number }) {
+const trackVariants = cva("hidden", {
+  variants: {
+    minWidth: {
+      all: "motion-safe:block",
+      md: "md:motion-safe:block",
+    },
+  },
+});
+
+interface ScrollTrackProps {
+  ref: RefObject<HTMLDivElement | null>;
+  screens: number;
+  minWidth: keyof typeof pinFrom;
+}
+
+/* One screen of scroll (`h-scroll-screen`, scaled on the width like the prototype) per screen the
+   stage stays pinned. */
+function ScrollTrack({ ref, screens, minWidth }: ScrollTrackProps) {
   return (
-    <div aria-hidden="true" className="hidden md:motion-safe:block">
+    <div ref={ref} aria-hidden="true" className={trackVariants({ minWidth })}>
       {Array.from({ length: screens }, (_, screen) => (
-        <div key={screen} className="h-svh" />
+        <div key={screen} className="h-scroll-screen" />
       ))}
     </div>
   );
@@ -32,12 +55,14 @@ interface FilmSceneProps
   /* The headline: its lines rise on load. */
   title: ReactElement;
   action: ReactNode;
-  /* Screens of scroll the stage stays pinned (tablet up) while the film plays. */
+  /* Screens of scroll the stage stays pinned while the film plays. */
   length?: keyof typeof sceneLength;
+  /* Where the stage pins: at every width, or from the tablet breakpoint (it scrolls by below). */
+  minWidth?: keyof typeof pinFrom;
 }
 
-/* A full-screen film behind a centred headline, scrubbed by the scroll (ADR-0025). Pinned from md,
-   then covered by the next section; on phones it plays while the stage scrolls by. */
+/* A full-screen film behind a centred headline, scrubbed by the scroll (ADR-0025). The stage stays pinned
+   while the film plays, then the next section covers it. */
 export function FilmScene({
   sources,
   poster,
@@ -45,15 +70,16 @@ export function FilmScene({
   title,
   action,
   length = "medium",
+  minWidth = "all",
   lightAt = Number.POSITIVE_INFINITY,
   leaveAt = Number.POSITIVE_INFINITY,
   ...props
 }: FilmSceneProps) {
   const stage = useRef<HTMLDivElement>(null);
+  const track = useRef<HTMLDivElement>(null);
   const overlay = useRef<HTMLDivElement>(null);
   const following = useRef<(progress: number) => void>(null);
-  const screens = sceneLength[length];
-  useRecede(stage, screens);
+  useRecede(stage, minWidth);
 
   function onFilmProgress(progress: number): void {
     if (overlay.current === null) {
@@ -72,8 +98,7 @@ export function FilmScene({
             poster={poster}
             {...(still === undefined ? {} : { still })}
             start="top top"
-            end="bottom top"
-            hold={filmHold(screens)}
+            end={() => filmEnd(stage.current, track.current)}
             onProgress={onFilmProgress}
           />
           <div data-film-veil aria-hidden="true" className="absolute inset-0 bg-fuji opacity-0" />
@@ -81,7 +106,7 @@ export function FilmScene({
             ref={overlay}
             className="absolute inset-0 grid place-items-center **:transition-colors"
           >
-            <Container className="md:-translate-y-24">
+            <Container className="md:tall:-translate-y-24">
               <Stack gap="xl" align="center">
                 <TextReveal play="load">{title}</TextReveal>
                 <div data-film-action>{action}</div>
@@ -89,7 +114,7 @@ export function FilmScene({
             </Container>
           </div>
         </div>
-        <ScrollTrack screens={screens} />
+        <ScrollTrack ref={track} screens={sceneLength[length]} minWidth={minWidth} />
       </div>
     </Section>
   );

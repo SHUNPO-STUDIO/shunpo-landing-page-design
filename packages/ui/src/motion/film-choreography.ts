@@ -4,15 +4,14 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { RefObject } from "react";
 
 import { mounted } from "../lib/mounted.ts";
-import { duration, ease, stagger } from "./tokens.ts";
+import { duration, ease, pinFrom, stagger } from "./tokens.ts";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-const PIN_FROM_MD = "(min-width: 48rem) and (prefers-reduced-motion: no-preference)";
-
-/* The film plays over 1 450 of the pin's 1 800 px at 900 px high, as in the approved prototype; its last
-   frame then holds until the next section covers the stage. */
-const FILM_SHARE = 1450 / 1800;
+/* The film plays over 1 450 of every 1 800 px of track (at 1 440 × 900, as in the approved prototype); its
+   last frame then holds until the next section covers the stage. */
+const FILM_PX = 1450;
+const TRACK_PX = 1800;
 /* While the next section covers it, the film recedes under a Fuji Night veil. */
 const RECEDED_SCALE = 1.05;
 const VEIL_OPACITY = 0.3;
@@ -26,10 +25,22 @@ export interface FilmMarks {
   leaveAt: number;
 }
 
-/* Share of the scene's scroll (stage, pinned screens, then the screen the next section covers it in)
-   that keeps the film's last frame. */
-export function filmHold(screens: number): number {
-  return 1 - (FILM_SHARE * screens) / (screens + 1);
+interface FilmScroll {
+  /* Height of the full-screen stage. */
+  stage: number;
+  /* Height of the scroll track the pinned stage stays on; 0 where the stage does not pin. */
+  track: number;
+}
+
+/* Scroll distance over which the film plays, from the top of the scene. Where the stage does not pin,
+   it plays while the first half of the stage scrolls by, so its last frame is still seen. */
+export function filmDistance({ stage, track }: FilmScroll): number {
+  return track > 0 ? (track * FILM_PX) / TRACK_PX : stage / 2;
+}
+
+/* The end of the film's scroll range (a ScrollTrigger position), measured on the stage and its track. */
+export function filmEnd(stage: HTMLElement | null, track: HTMLElement | null): string {
+  return `+=${filmDistance({ stage: stage?.offsetHeight ?? 0, track: track?.offsetHeight ?? 0 })}`;
 }
 
 function leave(overlay: HTMLElement, gone: boolean): void {
@@ -63,30 +74,33 @@ export function followFilm(overlay: HTMLElement, marks: FilmMarks): (progress: n
   };
 }
 
-function recede(stage: HTMLElement, screens: number): void {
-  const covered = screens / (screens + 1);
+/* The stage stays pinned through the scene (over its track), then recedes while the next section covers it. */
+function pinAndRecede(stage: HTMLElement): void {
+  const scene = stage.parentElement;
+  ScrollTrigger.create({
+    trigger: scene,
+    start: "top top",
+    end: "bottom top",
+    pin: stage,
+    pinSpacing: false,
+  });
   gsap
     .timeline({
-      defaults: { ease: "none", duration: 1 - covered },
-      scrollTrigger: {
-        trigger: stage.parentElement,
-        start: "top top",
-        end: "bottom top",
-        pin: stage,
-        pinSpacing: false,
-        scrub: true,
-      },
+      defaults: { ease: "none" },
+      scrollTrigger: { trigger: scene, start: "bottom bottom", end: "bottom top", scrub: true },
     })
-    .to("[data-slot=video-scrub]", { scale: RECEDED_SCALE, transformOrigin: "50% 80%" }, covered)
-    .to("[data-film-veil]", { opacity: VEIL_OPACITY }, covered);
+    .to("[data-slot=video-scrub]", { scale: RECEDED_SCALE, transformOrigin: "50% 80%" }, 0)
+    .to("[data-film-veil]", { opacity: VEIL_OPACITY }, 0);
 }
 
-/* From md, the stage stays pinned through the scene and recedes while the next section covers it. */
-export function useRecede(stage: RefObject<HTMLElement | null>, screens: number): void {
+export function useRecede(
+  stage: RefObject<HTMLElement | null>,
+  minWidth: keyof typeof pinFrom,
+): void {
   useGSAP(
     () => {
-      gsap.matchMedia().add(PIN_FROM_MD, () => {
-        recede(mounted(stage), screens);
+      gsap.matchMedia().add(pinFrom[minWidth], () => {
+        pinAndRecede(mounted(stage));
       });
     },
     { scope: stage },
