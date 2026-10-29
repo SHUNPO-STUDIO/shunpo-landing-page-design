@@ -29,3 +29,4 @@ Every technical decision in this repository (technologies, skills, MCP servers, 
 | 0023 | [Static export to GitHub Pages](0023-static-export-to-github-pages.md)                                     |
 | 0024 | [The SHUNPO site replaces the boilerplate showcase](0024-shunpo-site-replaces-the-boilerplate-showcase.md) |
 | 0025 | [Scroll-scrubbed video in the design system](0025-scroll-scrubbed-video-in-the-design-system.md)           |
+| 0026 | [Lighthouse budgets leave CI for now](0026-lighthouse-leaves-ci-for-now.md)                                |
