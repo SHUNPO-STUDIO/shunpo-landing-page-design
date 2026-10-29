@@ -1,30 +1,33 @@
-import { TokenTray } from "@repo/ui/components/token-tray";
-import { Container } from "@repo/ui/layout/container";
-import { Grid } from "@repo/ui/layout/grid";
-import { Section } from "@repo/ui/layout/section";
-import { Stack } from "@repo/ui/layout/stack";
-import { BlockStage } from "@repo/ui/motion/block-stage";
+import { ButtonLink } from "@repo/ui/components/button-link";
+import { FilmScene } from "@repo/ui/motion/film-scene";
+import { Heading } from "@repo/ui/typography/heading";
+import Image from "next/image";
 
-import { pageBlocks } from "./blocks";
-import { grain } from "./grain";
-import { HeroCopy } from "./hero-copy";
+import { heroCopy, heroFilm } from "./hero-content";
+import sunriseRisen from "./images/hero-sunrise-risen.webp";
+import sunriseStart from "./images/hero-sunrise-start.webp";
+import { contactHref } from "./links";
 
 export function HeroSection() {
   return (
-    <Section spacing="md">
-      <Container>
-        <Grid columns="2" from="lg" gap="3xl" align="center">
-          <HeroCopy />
-          <Stack gap="xl">
-            <BlockStage
-              blocks={pageBlocks}
-              label="Wooden blocks assembled into a miniature of this page"
-              grain={grain}
-            />
-            <TokenTray id="tray" />
-          </Stack>
-        </Grid>
-      </Container>
-    </Section>
+    <FilmScene
+      sources={heroFilm.sources}
+      poster={
+        <Image src={sunriseStart} alt="" fill sizes="100vw" loading="eager" fetchPriority="high" />
+      }
+      still={<Image src={sunriseRisen} alt="" fill sizes="100vw" />}
+      lightAt={heroFilm.lightAt}
+      leaveAt={heroFilm.leaveAt}
+      title={
+        <Heading level={1} size="headline" align="center">
+          {heroCopy.title}
+        </Heading>
+      }
+      action={
+        <ButtonLink href={contactHref} size="lg" corner="cut" arrow>
+          {heroCopy.action}
+        </ButtonLink>
+      }
+    />
   );
 }

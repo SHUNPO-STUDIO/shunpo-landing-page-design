@@ -1,27 +1,23 @@
-import { ClosingSection } from "@/features/home/closing-section";
-import { FigmaSection } from "@/features/home/figma-section";
-import { GenerateSection } from "@/features/home/generate-section";
-import { Guardrails } from "@/features/home/guardrails";
-import { HeroSection } from "@/features/home/hero-section";
-import { InstructionsSection } from "@/features/home/instructions-section";
-import { ObjectionsSection } from "@/features/home/objections-section";
+import { ActionChapter } from "@/features/home/action-chapter";
+import { MethodChapter } from "@/features/home/method-chapter";
+import { OpeningChapter } from "@/features/home/opening-chapter";
+import { OutcomeChapter } from "@/features/home/outcome-chapter";
+import { ProblemChapter } from "@/features/home/problem-chapter";
 import { SiteFooter } from "@/features/home/site-footer";
 import { SiteHeader } from "@/features/home/site-header";
-import { ToolboxSection } from "@/features/home/toolbox-section";
+import { TrustChapter } from "@/features/home/trust-chapter";
 
 export default function HomePage() {
   return (
     <>
       <SiteHeader />
       <main>
-        <HeroSection />
-        <ToolboxSection />
-        <FigmaSection />
-        <GenerateSection />
-        <Guardrails />
-        <InstructionsSection />
-        <ObjectionsSection />
-        <ClosingSection />
+        <OpeningChapter />
+        <ProblemChapter />
+        <OutcomeChapter />
+        <MethodChapter />
+        <TrustChapter />
+        <ActionChapter />
       </main>
       <SiteFooter />
     </>

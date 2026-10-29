@@ -1,37 +1,49 @@
+import { AdaptiveHeader } from "@repo/ui/components/adaptive-header";
+import { BrandLogo } from "@repo/ui/components/brand-logo";
 import { ButtonLink } from "@repo/ui/components/button-link";
-import { IsoBlocks } from "@repo/ui/components/iso-blocks";
-import { Container } from "@repo/ui/layout/container";
-import { Inline } from "@repo/ui/layout/inline";
-import { Section } from "@repo/ui/layout/section";
-import { Text } from "@repo/ui/typography/text";
-import { GitFork } from "lucide-react";
+import { MobileNav } from "@repo/ui/components/mobile-nav";
+import { NavBar } from "@repo/ui/components/nav-bar";
+import { SectionRail } from "@repo/ui/components/section-rail";
+import Link from "next/link";
 
-import { wordmarkBlocks } from "./blocks";
-import { grain } from "./grain";
-import { links } from "./links";
+import { contactHref } from "./links";
+import { headerCopy, mobileLinks, railItems } from "./site-header-content";
+import { SiteNavEntries } from "./site-nav-entries";
 
 export function SiteHeader() {
+  const brand = (
+    <Link href="/" aria-label={headerCopy.homeLabel}>
+      <BrandLogo />
+    </Link>
+  );
+  const cta = (
+    <ButtonLink href={contactHref} variant="accent" size="sm" corner="cut" arrow>
+      {headerCopy.cta}
+    </ButtonLink>
+  );
+
   return (
-    <Section as="header" spacing="xs">
-      <Container>
-        <Inline justify="between" wrap={false}>
-          <Inline gap="sm" wrap={false}>
-            <IsoBlocks grain={grain} blocks={wordmarkBlocks} label="" size="icon" aria-hidden />
-            <Text as="span" weight="semibold">
-              design‑boilerplate
-            </Text>
-          </Inline>
-          <Inline as="nav" gap="xs" wrap={false} aria-label="Main">
-            <ButtonLink href={links.documentation} variant="ghost" size="sm">
-              Docs
-            </ButtonLink>
-            <ButtonLink href={links.fork} variant="outline" size="sm">
-              <GitFork />
-              Fork
-            </ButtonLink>
-          </Inline>
-        </Inline>
-      </Container>
-    </Section>
+    <>
+      <AdaptiveHeader>
+        <NavBar
+          label={headerCopy.navigationLabel}
+          brand={brand}
+          action={cta}
+          menu={
+            <MobileNav
+              label={headerCopy.menuLabel}
+              openLabel={headerCopy.openMenu}
+              closeLabel={headerCopy.closeMenu}
+              brand={brand}
+              action={cta}
+              links={mobileLinks}
+            />
+          }
+        >
+          <SiteNavEntries />
+        </NavBar>
+      </AdaptiveHeader>
+      <SectionRail label={headerCopy.railLabel} items={railItems} />
+    </>
   );
 }

@@ -3,8 +3,8 @@
  * `--*: initial` removes Tailwind's defaults: a utility exists only if its token is declared here.
  * `static` emits every variable at runtime so audits and the Figma sync can read them.
  *
- * World: a box of building blocks on a painted, gridded table. Spacing and radii scale from
- * `--module-scale` and `--corner-scale`, which the presets at the end of this file swap at runtime.
+ * World: a day rising over misty mountains, white washi paper and ink (SHUNPO brand guide).
+ * The page is light (Kome paper); dark sections are scheme islands (`.scheme-dark`, Fuji Night).
  *
  * Colours are declared on `:root` and on scheme islands (`.scheme-light`, `.scheme-dark`): the build
  * polyfills `light-dark()` where a variable is declared, so each island must declare its own values.
@@ -21,32 +21,35 @@
 
   --container-prose: 40rem;
   --container-narrow: 52rem;
-  --container-default: 76rem;
+  --container-default: 75rem;
   --container-wide: 90rem;
 
   --spacing-0: 0rem;
   --spacing-px: 1px;
-  --spacing-0\.5: calc(0.125rem * var(--module-scale));
-  --spacing-1: calc(0.25rem * var(--module-scale));
-  --spacing-2: calc(0.5rem * var(--module-scale));
-  --spacing-3: calc(0.75rem * var(--module-scale));
-  --spacing-4: calc(1rem * var(--module-scale));
-  --spacing-5: calc(1.25rem * var(--module-scale));
-  --spacing-6: calc(1.5rem * var(--module-scale));
-  --spacing-8: calc(2rem * var(--module-scale));
-  --spacing-10: calc(2.5rem * var(--module-scale));
-  --spacing-12: calc(3rem * var(--module-scale));
-  --spacing-16: calc(4rem * var(--module-scale));
-  --spacing-20: calc(5rem * var(--module-scale));
-  --spacing-24: calc(6rem * var(--module-scale));
-  --spacing-32: calc(8rem * var(--module-scale));
-  --spacing-40: calc(10rem * var(--module-scale));
-  --spacing-48: calc(12rem * var(--module-scale));
+  --spacing-0\.5: 0.125rem;
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-5: 1.25rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+  --spacing-10: 2.5rem;
+  --spacing-12: 3rem;
+  --spacing-14: 3.5rem;
+  --spacing-16: 4rem;
+  --spacing-20: 5rem;
+  --spacing-24: 6rem;
+  --spacing-32: 8rem;
+  --spacing-40: 10rem;
+  --spacing-48: 12rem;
 
   --font-sans: var(--font-family-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-family-display), ui-serif, Georgia, serif;
+  --font-kanji: var(--font-family-kanji), "Hiragino Mincho ProN", "Yu Mincho", serif;
   --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-  --font-display: var(--font-family-display), ui-sans-serif, system-ui, sans-serif;
 
+  --font-weight-light: 300;
   --font-weight-regular: 400;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
@@ -61,42 +64,52 @@
   --text-lg--line-height: 1.75rem;
   --text-xl: 1.25rem;
   --text-xl--line-height: 1.875rem;
-  --text-xl--letter-spacing: -0.005em;
   --text-2xl: 1.5rem;
   --text-2xl--line-height: 2rem;
-  --text-2xl--letter-spacing: -0.01em;
   --text-3xl: clamp(1.75rem, 1.45rem + 1.2vw, 2.25rem);
-  --text-3xl--line-height: 1.15;
-  --text-3xl--letter-spacing: -0.015em;
+  --text-3xl--line-height: 1.2;
   --text-4xl: clamp(2.25rem, 1.6rem + 2.6vw, 3.5rem);
-  --text-4xl--line-height: 1.05;
-  --text-4xl--letter-spacing: -0.02em;
-  --text-5xl: clamp(2.75rem, 1.7rem + 4.2vw, 5rem);
-  --text-5xl--line-height: 1;
-  --text-5xl--letter-spacing: -0.025em;
-  --text-6xl: clamp(3.25rem, 1.6rem + 6.6vw, 6rem);
-  --text-6xl--line-height: 0.95;
-  --text-6xl--letter-spacing: -0.03em;
+  --text-4xl--line-height: 1.08;
+  --text-5xl: clamp(2.5rem, 1.6rem + 3.6vw, 4.5rem);
+  --text-5xl--line-height: 1.04;
+  --text-6xl: clamp(3.5rem, 2rem + 6vw, 6rem);
+  --text-6xl--line-height: 1;
+  --text-7xl: clamp(7rem, 3rem + 14vw, 15.5rem);
+  --text-7xl--line-height: 1;
 
+  --tracking-tight: -0.02em;
   --tracking-normal: 0em;
   --tracking-wide: 0.08em;
 
-  --radius-sm: calc(0.125rem * var(--corner-scale));
-  --radius-md: calc(0.25rem * var(--corner-scale));
-  --radius-lg: calc(0.375rem * var(--corner-scale));
-  --radius-xl: calc(0.5rem * var(--corner-scale));
-  --radius-2xl: calc(0.75rem * var(--corner-scale));
+  --radius-sm: 0.125rem;
+  --radius-md: 0.25rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
 
-  --shadow-xs: 0 1px 2px oklch(0.2 0.05 274 / 0.12);
-  --shadow-sm: 0 1px 2px oklch(0.2 0.05 274 / 0.12), 0 2px 6px oklch(0.2 0.05 274 / 0.1);
-  --shadow-md: 0 2px 4px oklch(0.2 0.05 274 / 0.12), 0 8px 24px oklch(0.2 0.05 274 / 0.18);
-  --shadow-lg: 0 4px 8px oklch(0.2 0.05 274 / 0.12), 0 24px 64px oklch(0.2 0.05 274 / 0.24);
+  --shadow-xs: 0 1px 2px oklch(0.262 0.013 222.6 / 0.08);
+  --shadow-sm:
+    0 1px 2px oklch(0.262 0.013 222.6 / 0.08), 0 4px 12px oklch(0.262 0.013 222.6 / 0.08);
+  --shadow-md:
+    0 2px 4px oklch(0.262 0.013 222.6 / 0.08), 0 12px 32px oklch(0.262 0.013 222.6 / 0.12);
+  --shadow-lg:
+    0 4px 8px oklch(0.262 0.013 222.6 / 0.08), 0 24px 64px oklch(0.262 0.013 222.6 / 0.18);
 
   --blur-sm: 0.5rem;
   --blur-md: 1rem;
 
   --ease-standard: cubic-bezier(0.2, 0, 0, 1);
   --ease-emphasized: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* The first viewport's headline rises without waiting for scripts, so it paints (LCP) at once. */
+  --animate-rise: rise 800ms var(--ease-emphasized) 150ms both;
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      translate: 0 0.6em;
+    }
+  }
 
   --default-font-family: var(--font-sans);
   --default-mono-font-family: var(--font-mono);
@@ -121,130 +134,246 @@
   --color-border: var(--border);
   --color-ring: var(--ring);
 
-  --shadow-plank: inset 0 calc(var(--spacing-1) * -1) 0 var(--primary-edge);
+  /* Brand materials: the same on any ground. Forbidden pairs (brand guide): Tenku next to Fushimi,
+     Fushimi on Fuji Night, Kurenai next to Fushimi. */
+  --color-fuji: var(--fuji);
+  --color-tenku: var(--tenku);
+  --color-shiro: var(--shiro);
+  --color-fushimi: var(--fushimi);
+  --color-ink-shadow: var(--ink-shadow);
+  --color-hikari: var(--hikari);
+  --color-kome: var(--kome);
+  --color-kurenai: var(--kurenai);
 }
 
 :root {
-  --module-scale: 1;
-  --corner-scale: 1;
+  --fuji: oklch(0.262 0.013 222.6);
+  --tenku: oklch(0.517 0.081 227.2);
+  --shiro: oklch(0.905 0.017 84.6);
+  --fushimi: oklch(0.546 0.154 31.7);
+  --ink-shadow: oklch(0.398 0 89.9);
+  --hikari: oklch(0.825 0.013 221.5);
+  --kome: oklch(0.956 0.01 87.5);
+  --kurenai: oklch(0.58 0.105 20.1);
 }
 
-/* Day: ultramarine painted table. Night: ink table. Pieces are maple and lacquer. */
+/* Day: Kome paper and Fuji Night ink. Night: the Fuji Night islands of the hero, the film and the close. */
 :root,
 .scheme-light,
 .scheme-dark {
-  --background: light-dark(oklch(0.439 0.221 268.1), oklch(0.198 0.059 274));
-  --foreground: light-dark(oklch(0.977 0.013 86.8), oklch(0.953 0.013 86.8));
-  --muted: light-dark(oklch(0.381 0.191 268.1), oklch(0.171 0.047 274.7));
-  --muted-foreground: light-dark(oklch(0.879 0.06 277.8), oklch(0.778 0.074 276.8));
-  --surface: light-dark(oklch(0.204 0.052 274.3), oklch(0.256 0.078 273.5));
-  --primary: light-dark(oklch(0.873 0.071 83.5), oklch(0.831 0.08 81.5));
-  --primary-foreground: oklch(0.204 0.052 274.3);
-  --primary-edge: light-dark(oklch(0.665 0.099 73.7), oklch(0.604 0.089 76.3));
-  --secondary: light-dark(oklch(0.506 0.22 270.1), oklch(0.308 0.089 273.2));
+  --background: light-dark(oklch(0.956 0.01 87.5), oklch(0.262 0.013 222.6));
+  --foreground: light-dark(oklch(0.262 0.013 222.6), oklch(0.956 0.01 87.5));
+  --muted: light-dark(oklch(0.905 0.017 84.6), oklch(0.301 0.015 224.1));
+  --muted-foreground: light-dark(oklch(0.491 0.012 229.1), oklch(0.825 0.013 221.5));
+  --surface: light-dark(oklch(0.976 0.007 97.4), oklch(0.339 0.017 220.1));
+  --primary: light-dark(oklch(0.262 0.013 222.6), oklch(0.956 0.01 87.5));
+  --primary-foreground: light-dark(oklch(0.956 0.01 87.5), oklch(0.262 0.013 222.6));
+  --secondary: light-dark(oklch(0.905 0.017 84.6), oklch(0.339 0.017 220.1));
   --secondary-foreground: var(--foreground);
-  --accent: oklch(0.845 0.157 89.3);
-  --accent-foreground: oklch(0.204 0.052 274.3);
-  --destructive: oklch(0.757 0.147 32.3);
-  --destructive-foreground: oklch(0.204 0.052 274.3);
-  --border: light-dark(oklch(0.529 0.206 271.3), oklch(0.331 0.104 273.6));
-  --ring: var(--accent);
-
-  /* Materials of the pieces: they keep their look on any ground, including the sheet. */
-  --maple: var(--primary);
-  --lacquer: var(--accent);
-  --paper: oklch(0.977 0.013 86.8);
-  --ink: light-dark(oklch(0.204 0.052 274.3), oklch(0.32 0.07 273));
-  --signal: var(--destructive);
+  --accent: light-dark(oklch(0.546 0.154 31.7), oklch(0.956 0.01 87.5));
+  --accent-foreground: light-dark(oklch(0.956 0.01 87.5), oklch(0.262 0.013 222.6));
+  --destructive: light-dark(oklch(0.496 0.141 31.7), oklch(0.825 0.013 221.5));
+  --destructive-foreground: light-dark(oklch(0.956 0.01 87.5), oklch(0.262 0.013 222.6));
+  --border: light-dark(oklch(0.856 0.021 84.6), oklch(0.385 0.017 219.9));
+  --ring: light-dark(oklch(0.517 0.081 227.2), oklch(0.825 0.013 221.5));
 }
 
-/* The instruction sheet: paper printed in ink and ultramarine, lit the same by day and night. */
-@utility surface-sheet {
-  color-scheme: light;
-  --background: oklch(0.977 0.013 86.8);
-  --foreground: oklch(0.204 0.052 274.3);
-  --muted: oklch(0.938 0.021 85.9);
-  --muted-foreground: oklch(0.436 0.052 277);
-  --surface: oklch(1 0 0);
-  --secondary: oklch(0.914 0.031 88.4);
-  --secondary-foreground: oklch(0.204 0.052 274.3);
-  --accent: oklch(0.439 0.221 268.1);
-  --accent-foreground: oklch(0.977 0.013 86.8);
-  --destructive: oklch(0.537 0.18 31.5);
-  --destructive-foreground: oklch(0.977 0.013 86.8);
-  --border: oklch(0.857 0.03 85.6);
-  --ring: oklch(0.439 0.221 268.1);
+/* The paper's cut corner: the folded chamfer on SHUNPO cards, panels and buttons. */
+@utility corner-cut-sm {
+  clip-path: polygon(
+    0 0,
+    calc(100% - var(--spacing-2)) 0,
+    100% var(--spacing-2),
+    100% 100%,
+    0 100%
+  );
 }
 
-/* Presets: the pieces a visitor can swap with TokenTray (ADR-0020). Listed in src/theme/presets.ts. */
-[data-paint="yellow"],
-[data-paint="yellow"] .scheme-light,
-[data-paint="yellow"] .scheme-dark {
-  --accent: oklch(0.845 0.157 89.3);
+@utility corner-cut {
+  clip-path: polygon(
+    0 0,
+    calc(100% - var(--spacing-4)) 0,
+    100% var(--spacing-4),
+    100% 100%,
+    0 100%
+  );
 }
 
-[data-paint="green"],
-[data-paint="green"] .scheme-light,
-[data-paint="green"] .scheme-dark {
-  --accent: oklch(0.771 0.153 156.2);
+@utility corner-cut-lg {
+  clip-path: polygon(
+    0 0,
+    calc(100% - var(--spacing-10)) 0,
+    100% var(--spacing-10),
+    100% 100%,
+    0 100%
+  );
 }
 
-[data-paint="orange"],
-[data-paint="orange"] .scheme-light,
-[data-paint="orange"] .scheme-dark {
-  --accent: oklch(0.776 0.159 59.2);
+/* Seal ink: a fractal-noise mask so stamps print with the irregular edges of a real hanko. */
+@utility ink-texture {
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='128'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1.4 0 0 0 1.6'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mask-size: var(--spacing-32);
 }
 
-[data-paint="sky"],
-[data-paint="sky"] .scheme-light,
-[data-paint="sky"] .scheme-dark {
-  --accent: oklch(0.83 0.103 232.7);
+/* WP5 — comparison, sectors, cases */
+
+/* The large chamfer of the full-width case panels. */
+@utility corner-cut-xl {
+  clip-path: polygon(
+    0 0,
+    calc(100% - var(--spacing-14)) 0,
+    100% var(--spacing-14),
+    100% 100%,
+    0 100%
+  );
 }
 
-[data-face="geometric"] {
-  --font-display: var(--font-family-display), ui-sans-serif, system-ui, sans-serif;
+/* An accordion panel follows its content height, measured by Base UI, so it can open smoothly. */
+@utility h-accordion-panel {
+  height: var(--accordion-panel-height);
 }
 
-[data-face="grotesque"] {
-  --font-display: var(--font-family-grotesque), ui-sans-serif, system-ui, sans-serif;
+/* WP3 — pains scene and system dashboard */
+
+/* A compact container step: the size from which a component can afford a side-by-side layout
+   (container queries `@compact:`), e.g. the system dashboard's sidebar and four-tile row. */
+@theme static {
+  --container-compact: 32rem;
 }
 
-[data-face="slab"] {
-  --font-display: var(--font-family-slab), ui-serif, serif;
+/* WP1 — header, section rail, client logos, footer */
+
+/* The open navigation panel spans its anchor, the full-width bar (Base UI positioner variable). */
+@utility w-anchor {
+  width: var(--anchor-width);
 }
 
-[data-module="standard"] {
-  --module-scale: 1;
+/* The open navigation panel's sheet of paper, cut at the bottom-right corner. */
+@utility corner-cut-bottom-lg {
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - var(--spacing-10)),
+    calc(100% - var(--spacing-10)) 100%,
+    0 100%
+  );
 }
 
-[data-module="compact"] {
-  --module-scale: 0.875;
+/* WP6 — team badges, testimonials wall, questions */
+
+/* The width of a testimonial card when the wall runs as horizontal rows on phones. */
+@theme static {
+  --container-quote: 18rem;
 }
 
-[data-module="roomy"] {
-  --module-scale: 1.125;
+/* Washi fibre: faint ink fibres over the paper colour, the grain of SHUNPO's paper objects (badges, sheets). */
+@utility washi-fibre {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' fill='none' stroke='%23474747' stroke-width='0.6'%3E%3Cpath d='M3 14Q-8 -21 -20 -55M81 65Q87 74 68 109M122 137Q152 128 175 125M94 103Q89 64 73 35M151 203Q165 178 172 161M121 180Q109 184 106 179M69 52Q87 42 83 54M177 137Q210 149 218 186M134 162Q91 171 63 167M105 38Q96 56 112 50M174 156Q151 143 113 145M95 79Q91 117 94 148M126 217Q92 219 61 219M65 20Q74 -19 59 -35M62 118Q65 93 54 82M123 121Q146 121 187 102M204 149Q199 165 173 202M58 175Q83 186 111 195M96 120Q93 113 100 96M21 23Q2 -5 -5 -45M194 7Q212 -7 209 1M125 81Q127 83 141 73M154 151Q145 156 128 170M97 86Q121 107 141 131M215 14Q179 31 158 34M154 168Q167 169 181 169M26 120Q25 94 7 84M159 193Q147 160 129 134M40 72Q19 54 6 28M215 112Q184 92 159 66M14 88Q6 83 16 60M46 91Q56 109 70 125M119 158Q150 154 190 141M168 14Q139 9 125 -9M40 149Q56 114 58 94M109 88Q105 76 78 89M202 39Q208 13 199 1M90 149Q93 138 116 106M103 134Q101 143 123 130M67 96Q76 104 86 110M197 16Q210 23 223 29M53 178Q53 179 38 195M81 109Q84 97 107 65M104 43Q100 51 94 61M173 202Q146 238 139 256M78 216Q80 230 77 249M112 13Q109 12 124 -8M210 190Q194 183 168 187M217 127Q244 102 262 85M51 178Q40 180 37 174' stroke-opacity='0.05'/%3E%3Cpath d='M89 103Q82 92 62 93M54 193Q53 212 70 213M203 182Q203 193 210 197M73 78Q91 76 88 95M202 26Q199 -3 175 -11M159 121Q190 115 218 112M183 139Q180 131 172 129M112 125Q95 139 93 139M128 175Q142 204 153 236M24 193Q49 215 91 220M91 124Q82 114 60 118M105 183Q125 178 143 177M153 205Q132 194 128 166M70 57Q79 37 66 39M137 160Q110 151 95 131M22 63Q15 67 -13 91M213 185Q223 185 220 198M215 18Q216 17 201 31M152 183Q161 185 159 198M114 16Q101 18 74 36M106 127Q120 151 133 176M34 62Q47 37 44 29M72 53Q59 36 36 28M119 145Q140 159 164 169M108 50Q142 49 174 49M146 69Q162 66 189 52M163 127Q140 115 103 116M33 56Q54 81 54 127M24 68Q44 97 82 108M169 60Q167 38 150 30M71 21Q97 5 103 8M81 2Q75 -1 72 -9M190 180Q224 163 247 156M101 146Q78 191 80 211M172 111Q202 91 231 74M161 76Q165 43 161 16M112 94Q139 100 183 89M43 189Q41 186 50 173M138 113Q153 90 146 90M151 208Q136 187 123 163M156 205Q169 184 159 187M149 90Q158 63 157 47M12 58Q40 16 44 -2M57 139Q82 150 128 139M90 13Q80 16 93 -2M110 210Q150 209 171 227M32 123Q10 125 -31 146M169 87Q156 88 160 71M93 187Q93 169 98 146M123 25Q138 21 141 29' stroke-opacity='0.08'/%3E%3Cpath d='M57 34Q19 39 -3 27M64 121Q101 123 117 147M94 4Q91 -2 96 -15M71 42Q46 76 44 86M211 184Q248 167 260 173M181 95Q181 67 177 42M158 219Q177 214 188 216M179 190Q176 152 147 141M105 116Q103 130 105 140M89 110Q66 135 50 152M18 55Q40 20 47 -1M96 74Q100 87 84 119M153 86Q165 69 184 46M173 182Q190 205 183 253M183 106Q180 96 179 84M189 117Q182 150 176 184M23 18Q21 50 14 86M152 60Q169 74 187 87M196 62Q172 41 157 11M36 163Q29 183 37 187M16 131Q21 118 49 84M191 170Q213 145 228 128M94 156Q93 142 92 128M208 157Q196 140 193 115M208 37Q206 68 228 75M121 153Q137 159 147 172M135 135Q131 106 112 91M8 164Q13 150 29 124M56 161Q41 167 53 148M119 162Q98 157 91 138M128 161Q153 172 194 167M66 9Q79 -20 72 -30M155 71Q156 59 164 40M127 106Q132 111 142 111M208 203Q230 186 237 185M159 136Q194 145 213 168M145 52Q122 55 97 61M141 76Q138 116 153 138M148 7Q130 8 127 -6M78 19Q66 9 48 4M99 194Q56 213 36 208M146 63Q167 51 170 55M174 100Q151 123 150 124M204 184Q222 165 244 144M47 95Q66 84 73 83M210 175Q195 184 195 179M204 76Q210 79 218 79M31 108Q49 115 79 110M19 182Q19 197 35 198M59 61Q29 54 11 36' stroke-opacity='0.11'/%3E%3C/svg%3E");
+  background-size: var(--spacing-48);
 }
 
-[data-corners="soft"] {
-  --corner-scale: 1;
+/* A woven Fuji Night strap that fades in from above the frame, as a lanyard hangs from out of view. */
+@utility lanyard-strap {
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--fuji) 0 2px,
+    color-mix(in oklab, var(--fuji), var(--kome) 8%) 2px 4px
+  );
+  mask-image: linear-gradient(transparent, black 35%);
 }
 
-[data-corners="sharp"] {
-  --corner-scale: 0;
+/* WP4 — method folders, sheets and brush grid */
+
+/* A folder sheet at reading size: wide enough for a text column beside a large figure. */
+@theme static {
+  --container-sheet: 66rem;
 }
 
-[data-corners="round"] {
-  --corner-scale: 3;
+/* Paper tones of the method folders (a sand and a mist folder beside the Kome one) and of their sheets:
+   brand materials, the same on any ground. */
+@theme static inline {
+  --color-washi: var(--washi);
+  --color-washi-sand: var(--washi-sand);
+  --color-washi-sand-deep: var(--washi-sand-deep);
+  --color-washi-mist: var(--washi-mist);
+  --color-washi-mist-deep: var(--washi-mist-deep);
 }
 
-[data-table="auto"] {
-  color-scheme: light dark;
+:root {
+  --washi: oklch(0.985 0.005 95.1);
+  --washi-sand: oklch(0.929 0.014 84.6);
+  --washi-sand-deep: oklch(0.875 0.02 84.6);
+  --washi-mist: oklch(0.929 0.005 134.9);
+  --washi-mist-deep: oklch(0.859 0.007 185.2);
 }
 
-[data-table="day"] {
-  color-scheme: light;
+/* Inside a FolderScene once its scene runs (tablet up, motion allowed): folders in a row, sheets on stage. */
+@custom-variant staged (&:where([data-staged], [data-staged] *));
+
+/* The front of a paper folder: both top corners cut. */
+@utility corner-cut-top {
+  clip-path: polygon(
+    0 var(--spacing-5),
+    var(--spacing-5) 0,
+    calc(100% - var(--spacing-5)) 0,
+    100% var(--spacing-5),
+    100% 100%,
+    0 100%
+  );
 }
 
-[data-table="night"] {
-  color-scheme: dark;
+/* An ink drop: a rounded bead of the current colour, lit from the top left. */
+@utility ink-drop {
+  background-image: radial-gradient(
+    circle at 42% 38%,
+    color-mix(in oklch, currentColor, white 14%) 0,
+    currentColor 55%,
+    color-mix(in oklch, currentColor, black 12%) 100%
+  );
 }
+
+/* The ragged edge of a watercolour wash. */
+@utility wash-edge {
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 150' preserveAspectRatio='none'%3E%3Cfilter id='w' x='-10%25' y='-10%25' width='120%25' height='120%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.035' numOctaves='3' seed='8' result='n'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='n' scale='12' xChannelSelector='R' yChannelSelector='G'/%3E%3C/filter%3E%3Crect x='6' y='6' width='188' height='138' rx='4' filter='url(%23w)'/%3E%3C/svg%3E");
+  mask-size: 100% 100%;
+}
+
+/* WP2 — filmed scenes (hero sunrise, closing samurai) */
+
+/* A filmed figure in a pool of light that fades into the ground: the film's left edge and its top and
+   bottom fade out, and only the halo around the body and the light on the floor stay. */
+@utility spotlight-mask {
+  mask-image:
+    linear-gradient(to right, transparent 0, black 15%),
+    linear-gradient(to bottom, transparent 0, black 7%, black 93%, transparent 100%),
+    radial-gradient(21% 58% at 61% 53%, black 62%, transparent 100%),
+    radial-gradient(30% 13% at 64% 89%, black 40%, transparent 100%);
+  mask-repeat: no-repeat;
+  mask-composite: intersect, intersect, add;
+}
+
+/* A full-screen stage that sizes the 16:9 frame inside it: as large as the stage allows, never cropped. */
+@utility fit-stage {
+  container-type: size;
+}
+
+@utility fit-video {
+  width: min(100cqw, 100cqh * 16 / 9);
+  aspect-ratio: 16 / 9;
+}
+
+/* Design review 1 — hero sunrise on every width, headline on short screens */
+
+@theme static {
+  /* One screen of a scene's scroll, measured on the approved 1 440 × 900 frame: the screen's height, or
+     62.5 % of its width when narrower, so a phone runs the same course as a desktop in proportion. */
+  --height-scroll-screen: min(100svh, 62.5vw);
+
+  /* A headline over a full-screen scene: display-xl, capped at 11 % of the screen's height so it clears
+     the header on short laptops (no cap from 873 px high). */
+  --text-headline: min(var(--text-6xl), 11svh);
+  --text-headline--line-height: 1;
+}
+
+/* Screens at least as tall as the approved 900 px frame, where a scene's headline sits above centre. */
+@custom-variant tall (@media (min-height: 56.25rem));

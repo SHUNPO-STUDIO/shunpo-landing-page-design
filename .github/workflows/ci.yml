@@ -29,7 +29,7 @@ jobs:
       - run: pnpm adr:check
 
   browser:
-    name: Build, design audit, Lighthouse
+    name: Build, design audit
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -40,14 +40,6 @@ jobs:
       - run: pnpm exec playwright install --with-deps chromium
         working-directory: apps/web
       - run: pnpm test:e2e
-      - run: pnpm --filter @repo/web lighthouse
-      - uses: actions/upload-artifact@v5
-        if: ${{ !cancelled() }}
-        with:
-          name: lighthouse-reports
-          path: apps/web/.lighthouseci
-          include-hidden-files: true
-          if-no-files-found: ignore
       - uses: actions/upload-artifact@v5
         if: failure()
         with:

@@ -3,15 +3,18 @@ import type { HTMLAttributes } from "react";
 
 import { cn } from "../lib/cn.ts";
 
-const headingVariants = cva("font-display font-semibold", {
+const headingVariants = cva("font-display font-regular tracking-tight", {
   variants: {
     size: {
       "display-xl": "text-6xl",
+      /* A page's headline over a full-screen scene: display on phones, display-xl from tablets, capped
+         by the screen's height so it clears the header on short laptops. */
+      headline: "text-5xl md:text-headline",
       display: "text-5xl",
       "title-lg": "text-4xl",
       title: "text-3xl",
       "title-sm": "text-2xl",
-      subtitle: "text-xl font-medium",
+      subtitle: "text-xl",
     },
     tone: {
       default: "text-foreground",

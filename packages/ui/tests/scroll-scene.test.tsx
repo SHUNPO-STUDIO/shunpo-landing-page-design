@@ -3,10 +3,9 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { render } from "vitest-browser-react";
 import { page } from "vitest/browser";
 
-import { CodeBlock } from "../src/components/code-block.tsx";
-import { CodeLine } from "../src/components/code-line.tsx";
 import { Container } from "../src/layout/container.tsx";
 import { ScrollScene } from "../src/motion/scroll-scene.tsx";
+import { Text } from "../src/typography/text.tsx";
 import { allowMotion, preferReducedMotion } from "./support/reduced-motion.ts";
 
 const PHONE = { width: 390, height: 844 };
@@ -72,15 +71,15 @@ describe("ScrollScene", () => {
     expect(choreography).toHaveBeenCalledOnce();
   });
 
-  it("keeps content within a phone screen when a code line is long", async () => {
+  it("keeps content within a phone screen when a line is long", async () => {
     await page.viewport(PHONE.width, PHONE.height);
     const choreography = vi.fn<(timeline: gsap.core.Timeline) => void>();
     const screen = await render(
       <ScrollScene choreography={choreography} minWidth="md">
         <Container data-testid="content">
-          <CodeBlock title="Long output">
-            <CodeLine>✓ [desktop] uses only tokens, symmetric paddings and no overlaps</CodeLine>
-          </CodeBlock>
+          <Text>
+            Logiciels métier sur mesure, automatisations et IA pour les PME de 20 à 250 salariés.
+          </Text>
         </Container>
       </ScrollScene>,
     );

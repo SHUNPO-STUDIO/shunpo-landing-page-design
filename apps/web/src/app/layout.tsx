@@ -1,34 +1,29 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Geist, Jost, Zilla_Slab } from "next/font/google";
+import { Hanken_Grotesk, Piazzolla, Shippori_Mincho } from "next/font/google";
 
 import { Providers } from "./providers";
 
 import "./globals.css";
 
-const sans = Geist({ variable: "--font-family-sans", subsets: ["latin"] });
-const display = Jost({ variable: "--font-family-display", subsets: ["latin"] });
-const grotesque = Bricolage_Grotesque({
-  variable: "--font-family-grotesque",
+const sans = Hanken_Grotesk({ variable: "--font-family-sans", subsets: ["latin"] });
+const display = Piazzolla({ variable: "--font-family-display", subsets: ["latin"] });
+const kanji = Shippori_Mincho({
+  variable: "--font-family-kanji",
   subsets: ["latin"],
+  weight: "500",
   preload: false,
 });
-const slab = Zilla_Slab({
-  variable: "--font-family-slab",
-  subsets: ["latin"],
-  weight: "600",
-  preload: false,
-});
-const fontVariables = [sans, display, grotesque, slab].map((font) => font.variable).join(" ");
+const fontVariables = [sans, display, kanji].map((font) => font.variable).join(" ");
 
 export const metadata: Metadata = {
-  title: "Design Boilerplate",
+  title: "SHUNPO · Logiciels métier sur mesure, automatisations et IA pour les PME",
   description:
-    "A Next.js monorepo and agent toolkit for designing with your agent, built from one design system that keeps every piece on scale.",
+    "SHUNPO construit le système qui fait tourner votre entreprise : logiciels métier sur mesure, automatisations et IA pour les PME de 20 à 250 salariés. Une équipe à Lyon, sur le terrain avec vous.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={fontVariables}>
+    <html lang="fr" className={fontVariables}>
       <body>
         <Providers>{children}</Providers>
       </body>

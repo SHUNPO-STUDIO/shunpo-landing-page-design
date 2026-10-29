@@ -12,14 +12,12 @@ catalog:
   "@commitlint/config-conventional": ^21.2.4
   "@commitlint/types": ^21.2.3
   '@figma/code-connect': ^2.1.0
-  '@fontsource-variable/bricolage-grotesque': 5.3.0
-  "@fontsource-variable/geist": ^5.3.0
-  '@fontsource-variable/jost': 5.3.0
-  '@fontsource/zilla-slab': 5.3.0
+  '@fontsource-variable/hanken-grotesk': 5.3.0
+  '@fontsource-variable/piazzolla': 5.3.0
+  '@fontsource/shippori-mincho': 5.3.0
   "@gsap/react": ^2.1.2
   "@lhci/cli": ^0.15.1
   "@playwright/test": ^1.64.1
-  '@react-three/fiber': 9.8.2
   "@storybook/addon-a11y": ^10.6.4
   "@storybook/addon-docs": ^10.6.4
   "@storybook/addon-vitest": ^10.6.4
@@ -31,7 +29,6 @@ catalog:
   "@types/node": ^26.6.5
   "@types/react": ^19.3.0
   "@types/react-dom": ^19.3.0
-  '@types/three': 0.186.0
   "@vitest/browser": ^5.0.5
   "@vitest/browser-playwright": ^5.0.5
   "@vitest/coverage-v8": ^5.0.5
@@ -51,11 +48,9 @@ catalog:
   playwright: ^1.64.1
   react: ^19.3.1
   react-dom: ^19.3.1
-  simple-icons: 16.36.0
   storybook: ^10.6.4
   tailwind-merge: ^3.7.0
   tailwindcss: ^4.3.3
-  three: 0.186.1
   turbo: ^2.11.10
   typescript: ^7.0.2
   vite: ^8.3.5
