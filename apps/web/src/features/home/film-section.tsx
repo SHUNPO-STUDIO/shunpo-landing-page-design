@@ -1,13 +1,19 @@
-import { Container } from "@repo/ui/layout/container";
-import { Section } from "@repo/ui/layout/section";
-import { Heading } from "@repo/ui/typography/heading";
+import { PhotoStage } from "@repo/ui/motion/photo-stage";
+import Image from "next/image";
+
+import processWall from "./images/film-process-wall.webp";
 
 export function FilmSection() {
   return (
-    <Section>
-      <Container>
-        <Heading level={2}>Le terrain d’abord</Heading>
-      </Container>
-    </Section>
+    <PhotoStage
+      image={
+        <Image
+          src={processWall}
+          alt="Une personne de dos face à un mur couvert de schémas de processus, dans un bureau traversé par un rayon de lumière."
+          fill
+          sizes="(min-width: 90rem) 1260px, (min-width: 48rem) 88vw, 100vw"
+        />
+      }
+    />
   );
 }

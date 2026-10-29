@@ -1,14 +1,15 @@
+import { Statement } from "@repo/ui/components/statement";
 import { Container } from "@repo/ui/layout/container";
 import { Section } from "@repo/ui/layout/section";
-import { Heading } from "@repo/ui/typography/heading";
 
 export function StatementSection() {
   return (
-    <Section>
-      <Container>
-        <Heading level={2}>
-          On ne vend pas de la tech. On construit ce qui fait croître votre business.
-        </Heading>
+    <Section tone="surface" spacing="xl">
+      <Container size="narrow">
+        <Statement
+          lead="On ne vend pas de la tech."
+          emphasis="On construit ce qui fait croître votre business."
+        />
       </Container>
     </Section>
   );
