@@ -32,12 +32,25 @@ const steps = [
   card: <p>Carte {step.id}</p>,
 }));
 
-function renderScene() {
+const plainStep = {
+  id: "attente",
+  targets: [],
+  plate: (
+    <PaperPlate
+      image={<img src={PICTURE} alt="attente" width={400} height={500} />}
+      number="03"
+      caption="attente"
+    />
+  ),
+  card: <p>Carte attente</p>,
+};
+
+function renderScene(sceneSteps = steps) {
   return render(
     <>
       <FilingScene
         heading={<h2>Votre entreprise tourne.</h2>}
-        steps={steps}
+        steps={sceneSteps}
         outro={<p>Avec SHUNPO</p>}
         board={<SystemDashboard {...dashboardSample} />}
         hanko={<img src={PICTURE} alt="" width={80} height={240} />}
@@ -94,6 +107,29 @@ describe("FilingScene", () => {
     expect(opacityOf(screen.getByText("Classé").element())).toBe(1);
   });
 
+  it("fades a plate with no stamp and no tile where it stands, then lights the whole board", async () => {
+    const screen = await renderScene([plainStep]);
+    window.scrollTo(0, DESKTOP.height * 4);
+    await settle();
+
+    await expect.element(screen.getByText("Avec SHUNPO")).toBeVisible();
+    await expect.element(screen.getByAltText("attente")).not.toBeVisible();
+    for (const tile of screen.container.querySelectorAll("[data-tile]")) {
+      expect(opacityOf(tile)).toBe(1);
+    }
+  });
+
+  it("goes straight to the outro and the whole board when there are no steps", async () => {
+    const screen = await renderScene([]);
+    window.scrollTo(0, DESKTOP.height * 4);
+    await settle();
+
+    await expect.element(screen.getByText("Avec SHUNPO")).toBeVisible();
+    for (const tile of screen.container.querySelectorAll("[data-tile]")) {
+      expect(opacityOf(tile)).toBe(1);
+    }
+  });
+
   it("shows the complete story stacked and still when the user prefers reduced motion", async () => {
     await preferReducedMotion();
     const screen = await renderScene();
@@ -113,5 +149,15 @@ describe("FilingScene", () => {
     stamp.scrollIntoView({ block: "center" });
     await settle();
     expect(opacityOf(stamp)).toBe(1);
+  });
+
+  it("stacks a plate without a stamp on phones as it is", async () => {
+    await page.viewport(PHONE.width, PHONE.height);
+    const screen = await renderScene([...steps, plainStep]);
+
+    screen.getByText("Carte attente").element().scrollIntoView({ block: "center" });
+
+    await expect.element(screen.getByAltText("attente")).toBeVisible();
+    await expect.element(screen.getByText("Carte attente")).toBeVisible();
   });
 });

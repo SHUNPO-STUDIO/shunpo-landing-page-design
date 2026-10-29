@@ -55,6 +55,8 @@ export const Sunrise: Story = {
   play: async ({ canvasElement }) => {
     const film = canvasElement.querySelector("video");
     await expect(film).not.toBeNull();
+    await expect(film?.querySelectorAll("source")).toHaveLength(0);
+    window.dispatchEvent(new Event("scroll"));
     await waitFor(async () => {
       await expect(
         [...(film?.querySelectorAll("source") ?? [])].map((source) => source.type),

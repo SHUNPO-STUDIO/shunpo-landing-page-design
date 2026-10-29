@@ -29,13 +29,17 @@ export function smoothStep(from: number, to: number, value: number): number {
   return t * t * (3 - 2 * t);
 }
 
-/* The point at an index, clamped to the ends of the list. */
-export function pointAt(points: readonly Point[], index: number): Point {
-  const point = points[Math.min(points.length - 1, Math.max(0, index))];
-  if (point === undefined) {
+/* The entry of a per-point list at an index, clamped to the ends of the list. */
+function clampedAt<Entry>(entries: readonly Entry[], index: number): Entry {
+  const entry = entries[Math.min(entries.length - 1, Math.max(0, index))];
+  if (entry === undefined) {
     throw new Error("A brush stroke needs at least one point.");
   }
-  return point;
+  return entry;
+}
+
+export function pointAt(points: readonly Point[], index: number): Point {
+  return clampedAt(points, index);
 }
 
 function catmullRom(values: readonly [number, number, number, number], t: number): number {
@@ -74,7 +78,7 @@ function distances(points: readonly Point[]): number[] {
   for (let index = 1; index < points.length; index += 1) {
     const [x, y] = pointAt(points, index);
     const [previousX, previousY] = pointAt(points, index - 1);
-    travelled.push((travelled.at(-1) ?? 0) + Math.hypot(x - previousX, y - previousY));
+    travelled.push(clampedAt(travelled, index - 1) + Math.hypot(x - previousX, y - previousY));
   }
   return travelled;
 }
@@ -82,16 +86,16 @@ function distances(points: readonly Point[]): number[] {
 /* Samples a polyline at even distances, so the brush moves at a steady pace along it. */
 function resample(points: readonly Point[], count: number): Point[] {
   const travelled = distances(points);
-  const total = travelled.at(-1) ?? 0;
+  const total = clampedAt(travelled, travelled.length - 1);
   const samples: Point[] = [];
   let segment = 0;
   for (let sample = 0; sample < count; sample += 1) {
     const target = (total * sample) / (count - 1);
-    while (segment < travelled.length - 2 && (travelled[segment + 1] ?? 0) < target) {
+    while (segment < travelled.length - 2 && clampedAt(travelled, segment + 1) < target) {
       segment += 1;
     }
-    const start = travelled[segment] ?? 0;
-    const share = (target - start) / ((travelled[segment + 1] ?? start) - start || 1);
+    const start = clampedAt(travelled, segment);
+    const share = (target - start) / (clampedAt(travelled, segment + 1) - start || 1);
     const [x, y] = pointAt(points, segment);
     const [nextX, nextY] = pointAt(points, segment + 1);
     samples.push([x + (nextX - x) * share, y + (nextY - y) * share]);

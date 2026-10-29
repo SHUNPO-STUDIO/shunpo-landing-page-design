@@ -57,7 +57,7 @@ describe("Marquee", () => {
       .toBe(0);
   });
 
-  it("is a still, wrapped row without its toggle under reduced motion", async () => {
+  it("is a still, wrapped row without its toggle under reduced motion, even under the pointer", async () => {
     await preferReducedMotion();
     const screen = await render(<Band />);
     const start = trackOffset(screen.container);
@@ -65,6 +65,8 @@ describe("Marquee", () => {
     await expect
       .element(screen.getByRole("button", { name: "Mettre en pause le défilement des logos" }))
       .not.toBeInTheDocument();
+    await screen.getByRole("list").hover();
+    await screen.getByRole("list").unhover();
     await new Promise((resolve) => {
       setTimeout(resolve, 300);
     });

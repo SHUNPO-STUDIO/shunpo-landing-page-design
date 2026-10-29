@@ -70,6 +70,26 @@ describe("paintBrushStroke", () => {
     }
   });
 
+  it("keeps a stroke on a single point on that point, with no broken coordinate", () => {
+    const stroke = paintBrushStroke({ ...VERTICAL, points: [[70, FIRST_Y]] });
+    const paths = [
+      stroke.body,
+      stroke.centre,
+      ...stroke.bristles.map((bristle) => bristle.path),
+      ...stroke.grooves.map((groove) => groove.path),
+    ];
+
+    for (const path of paths) {
+      expect(path).toMatch(/^M70 18(?:L70 18)*Z?$/u);
+    }
+  });
+
+  it("refuses a stroke without points", () => {
+    expect(() => paintBrushStroke({ ...VERTICAL, points: [] })).toThrow(
+      "A brush stroke needs at least one point.",
+    );
+  });
+
   it("reveals along a centre line that starts before the brush lands and covers its press", () => {
     const { centre, revealWidth } = paintBrushStroke(VERTICAL);
     const [, startY] = coordinates(centre);

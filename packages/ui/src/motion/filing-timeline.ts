@@ -190,7 +190,7 @@ export function fileIntoBoard(timeline: gsap.core.Timeline, parts: FilingParts):
   const plates = parts.steps.map((step) => step.plate);
   gsap.set(plates, { zIndex: (index: number) => PILE_DEPTH - index });
   gsap.set(
-    plates.map((plate) => plate.querySelector(STAMP)),
+    plates.flatMap((plate) => Array.from(plate.querySelectorAll(STAMP))),
     { opacity: 0 },
   );
   timeline.to({}, { duration: duration.base });

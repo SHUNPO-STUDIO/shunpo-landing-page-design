@@ -21,7 +21,7 @@ describe("TextReveal", () => {
     );
 
     await expect
-      .element(screen.container.querySelector("[data-slot=text-reveal]"))
+      .element(screen.container.querySelector<HTMLElement>("[data-slot=text-reveal]"))
       .toHaveStyle({ animationName: "rise" });
     await expect.element(screen.getByRole("heading", { level: 1, name: TITLE })).toBeVisible();
     await expect

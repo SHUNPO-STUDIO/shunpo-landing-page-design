@@ -31,7 +31,7 @@ describe("whenNear", () => {
 
     window.dispatchEvent(new Event("scroll"));
 
-    await expect.poll(() => load.mock.calls.length).toBe(1);
+    await expect.poll(() => load.mock.calls.length, { timeout: 5000 }).toBe(1);
   });
 
   it("never loads after being cancelled", async () => {

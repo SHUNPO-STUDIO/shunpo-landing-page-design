@@ -95,6 +95,27 @@ describe("FolderScene", () => {
     expect(sheetScale(screen.container)).toBeLessThan(0.5);
   });
 
+  it("pins a scene that only has its opening and fades the opening out on scroll", async () => {
+    const screen = await render(
+      <>
+        <FolderScene>
+          <FolderSceneOpening>
+            <h2>Méthode</h2>
+          </FolderSceneOpening>
+        </FolderScene>
+        <div className="h-dvh" />
+      </>,
+    );
+
+    expect(screen.container.querySelector(".pin-spacer")).not.toBeNull();
+    expect(opacityOf(screen.container, "[data-slot=folder-scene-opening]")).toBe("1");
+    window.scrollTo(0, DESKTOP.height * 1.5);
+
+    await expect
+      .poll(() => opacityOf(screen.container, "[data-slot=folder-scene-opening]"))
+      .toBe("0");
+  });
+
   it("leaves the grid to paint while its sheet is out", async () => {
     const screen = await renderScene();
 

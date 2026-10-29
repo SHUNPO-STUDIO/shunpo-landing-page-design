@@ -8,7 +8,6 @@ const meta = {
   title: "Components/ComparisonCard",
   component: ComparisonCard,
   args: {
-    tone: "standard",
     title: "ERP ou SaaS standard",
     claim: "Vous vous adaptez à l’outil.",
     items: [

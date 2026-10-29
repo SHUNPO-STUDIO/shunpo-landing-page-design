@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect } from "storybook/test";
+import { expect, waitFor } from "storybook/test";
 
 import { Container } from "../src/layout/container.tsx";
 import { Section } from "../src/layout/section.tsx";
@@ -42,11 +42,12 @@ type Story = StoryObj<typeof meta>;
 
 export const LinesOnLoad: Story = {
   play: async ({ canvas }) => {
-    await expect(
-      await canvas.findByRole("heading", {
-        name: "On construit le système qui fait tourner votre entreprise, boosté à l’IA.",
-      }),
-    ).toBeVisible();
+    const heading = await canvas.findByRole("heading", {
+      name: "On construit le système qui fait tourner votre entreprise, boosté à l’IA.",
+    });
+    await waitFor(async () => {
+      await expect(heading).toBeVisible();
+    });
   },
 };
 

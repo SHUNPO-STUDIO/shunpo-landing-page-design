@@ -58,6 +58,15 @@ describe("ComparisonReveal", () => {
     });
   });
 
+  it("renders no note area when no note is given", async () => {
+    const screen = await render(
+      <ComparisonReveal standard={<p>Standard</p>} custom={<p>Custom</p>} />,
+    );
+
+    await expect.element(screen.getByText("Custom")).toBeVisible();
+    expect(screen.container.querySelector("[data-reveal='note']")).toBeNull();
+  });
+
   it("shows both sides in place when the user prefers reduced motion", async () => {
     await preferReducedMotion();
     const standard = await renderBelowTheFold();

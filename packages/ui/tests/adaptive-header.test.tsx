@@ -43,6 +43,17 @@ describe("AdaptiveHeader", () => {
     await expect.element(header).toHaveClass("bg-transparent");
   });
 
+  it("is a solid bar from the start on a page without a main opening section", async () => {
+    const screen = await render(
+      <>
+        <AdaptiveHeader data-testid="header" />
+        <section className="h-dvh">Paper</section>
+      </>,
+    );
+
+    await expect.element(screen.getByTestId("header")).toHaveClass("bg-background");
+  });
+
   it("becomes a solid paper bar once the opening section is behind it", async () => {
     const screen = await render(<Page />);
     const header = screen.getByTestId("header");

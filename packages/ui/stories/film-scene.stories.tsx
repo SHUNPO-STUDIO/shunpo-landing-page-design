@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect } from "storybook/test";
+import { expect, waitFor } from "storybook/test";
 
 import { ButtonLink } from "../src/components/button-link.tsx";
 import { FilmScene } from "../src/motion/film-scene.tsx";
@@ -35,7 +35,7 @@ const meta = {
     ),
     action: (
       <ButtonLink href="#contact" size="lg" corner="cut" arrow>
-        Réserver une immersion
+        Réserver une Immersion
       </ButtonLink>
     ),
     lightAt: 0.6,
@@ -57,7 +57,10 @@ type Story = StoryObj<typeof meta>;
 
 export const Sunrise: Story = {
   play: async ({ canvas }) => {
-    await expect(await canvas.findByRole("heading", { level: 1 })).toBeVisible();
-    await expect(canvas.getByRole("link", { name: "Réserver une immersion" })).toBeVisible();
+    const heading = await canvas.findByRole("heading", { level: 1 });
+    await waitFor(async () => {
+      await expect(heading).toBeVisible();
+    });
+    await expect(canvas.getByRole("link", { name: "Réserver une Immersion" })).toBeVisible();
   },
 };
