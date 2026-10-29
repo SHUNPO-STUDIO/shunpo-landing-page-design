@@ -15,7 +15,7 @@ export function Stat({ value, label, className, ...props }: StatProps) {
       {...props}
     >
       <dt className="text-md text-muted-foreground">{label}</dt>
-      <dd className="text-5xl font-semibold text-foreground">{value}</dd>
+      <dd className="font-display text-6xl tracking-tight text-foreground">{value}</dd>
     </div>
   );
 }

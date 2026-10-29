@@ -15,12 +15,12 @@ const sectionVariants = cva("text-foreground", {
     tone: {
       default: "",
       muted: "bg-muted",
-      sheet: "bg-background surface-sheet",
+      surface: "bg-surface",
     },
     scheme: {
       inherit: "",
-      light: "bg-background table-grid scheme-light",
-      dark: "bg-background table-grid scheme-dark",
+      light: "bg-background scheme-light",
+      dark: "bg-background scheme-dark",
     },
   },
   defaultVariants: { spacing: "md", tone: "default", scheme: "inherit" },
@@ -29,12 +29,9 @@ const sectionVariants = cva("text-foreground", {
 type SectionElement = "section" | "header" | "footer" | "aside";
 type SectionVariants = VariantProps<typeof sectionVariants>;
 
-/* The colour scheme a section shows, whatever the page's: islands set it, the paper sheet is always light. */
-function shownScheme({ scheme, tone }: SectionVariants): "light" | "dark" | undefined {
-  if (scheme === "light" || scheme === "dark") {
-    return scheme;
-  }
-  return tone === "sheet" ? "light" : undefined;
+/* The colour scheme a section shows, whatever the page's: only islands set it. */
+function shownScheme({ scheme }: SectionVariants): "light" | "dark" | undefined {
+  return scheme === "light" || scheme === "dark" ? scheme : undefined;
 }
 
 interface SectionProps extends HTMLAttributes<HTMLElement>, VariantProps<typeof sectionVariants> {
@@ -52,7 +49,7 @@ export function Section({
   return (
     <Element
       data-slot="section"
-      data-scheme={shownScheme({ scheme, tone })}
+      data-scheme={shownScheme({ scheme })}
       className={cn(sectionVariants({ spacing, tone, scheme }), className)}
       {...props}
     />

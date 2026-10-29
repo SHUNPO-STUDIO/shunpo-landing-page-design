@@ -8,7 +8,7 @@
   "exports": {
     "./globals.css": "./src/styles/globals.css",
     "./motion/tokens": "./src/motion/tokens.ts",
-    "./lib/isometric": "./src/lib/isometric.ts",
+    "./motion/press-stamp": "./src/motion/press-stamp.ts",
     "./components/*": "./src/components/*.tsx",
     "./layout/*": "./src/layout/*.tsx",
     "./typography/*": "./src/typography/*.tsx",
@@ -24,7 +24,6 @@
   "dependencies": {
     "@base-ui/react": "catalog:",
     "@gsap/react": "catalog:",
-    "@react-three/fiber": "catalog:",
     "class-variance-authority": "catalog:",
     "clsx": "catalog:",
     "gsap": "catalog:",
@@ -32,16 +31,13 @@
     "lucide-react": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "simple-icons": "catalog:",
-    "tailwind-merge": "catalog:",
-    "three": "catalog:"
+    "tailwind-merge": "catalog:"
   },
   "devDependencies": {
     "@figma/code-connect": "catalog:",
-    "@fontsource-variable/bricolage-grotesque": "catalog:",
-    "@fontsource-variable/geist": "catalog:",
-    "@fontsource-variable/jost": "catalog:",
-    "@fontsource/zilla-slab": "catalog:",
+    "@fontsource-variable/hanken-grotesk": "catalog:",
+    "@fontsource-variable/piazzolla": "catalog:",
+    "@fontsource/shippori-mincho": "catalog:",
     "@repo/typescript-config": "workspace:*",
     "@storybook/addon-a11y": "catalog:",
     "@storybook/addon-docs": "catalog:",
@@ -50,7 +46,6 @@
     "@tailwindcss/vite": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
-    "@types/three": "catalog:",
     "@vitest/browser": "catalog:",
     "@vitest/browser-playwright": "catalog:",
     "@vitest/coverage-v8": "catalog:",

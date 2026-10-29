@@ -19,8 +19,7 @@
     "lucide-react": "catalog:",
     "next": "catalog:",
     "react": "catalog:",
-    "react-dom": "catalog:",
-    "simple-icons": "catalog:"
+    "react-dom": "catalog:"
   },
   "devDependencies": {
     "@axe-core/playwright": "catalog:",

@@ -15,6 +15,10 @@ describe("cn", () => {
     expect(cn("font-sans", "font-regular", "font-semibold")).toBe("font-sans font-semibold");
   });
 
+  it("treats the kanji face as a family and light as a weight", () => {
+    expect(cn("font-display", "font-light", "font-kanji")).toBe("font-light font-kanji");
+  });
+
   it("separates font sizes from text colours", () => {
     expect(cn("text-md", "text-foreground", "text-lg")).toBe("text-foreground text-lg");
   });

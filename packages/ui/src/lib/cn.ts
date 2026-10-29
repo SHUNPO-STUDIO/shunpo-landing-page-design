@@ -6,10 +6,9 @@ const twMerge = extendTailwindMerge({
     theme: {
       container: ["prose", "narrow", "default", "wide"],
       ease: ["standard", "emphasized"],
-      font: ["sans", "mono", "display"],
-      "font-weight": ["regular", "medium", "semibold"],
-      shadow: ["plank"],
-      tracking: ["normal", "wide"],
+      font: ["sans", "mono", "display", "kanji"],
+      "font-weight": ["light", "regular", "medium", "semibold"],
+      tracking: ["tight", "normal", "wide"],
     },
   },
 });

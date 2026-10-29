@@ -3,7 +3,7 @@ import type { HTMLAttributes } from "react";
 
 import { cn } from "../lib/cn.ts";
 
-const headingVariants = cva("font-display font-semibold", {
+const headingVariants = cva("font-display font-regular tracking-tight", {
   variants: {
     size: {
       "display-xl": "text-6xl",
@@ -11,7 +11,7 @@ const headingVariants = cva("font-display font-semibold", {
       "title-lg": "text-4xl",
       title: "text-3xl",
       "title-sm": "text-2xl",
-      subtitle: "text-xl font-medium",
+      subtitle: "text-xl",
     },
     tone: {
       default: "text-foreground",

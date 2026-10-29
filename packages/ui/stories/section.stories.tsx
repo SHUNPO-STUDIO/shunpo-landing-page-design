@@ -32,4 +32,4 @@ export const Default: Story = {};
 export const Muted: Story = { args: { tone: "muted" } };
 export const DarkScheme: Story = { args: { scheme: "dark" } };
 export const ExtraLarge: Story = { args: { spacing: "xl" } };
-export const Sheet: Story = { args: { tone: "sheet" } };
+export const Surface: Story = { args: { tone: "surface" } };

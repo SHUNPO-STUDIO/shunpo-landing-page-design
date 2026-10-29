@@ -35,8 +35,6 @@ export default defineConfig({
       "clsx",
       "tailwind-merge",
       "lucide-react",
-      "three",
-      "@react-three/fiber",
     ],
   },
   test: {
